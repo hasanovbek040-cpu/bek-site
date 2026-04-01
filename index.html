@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="kk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartTest Pro - Оқу платформасы</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Roboto:wght@400;500;700&display=swap&subset=cyrillic,cyrillic-ext"
+        rel="stylesheet">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div id="auth-screen" class="auth-overlay">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <i class="fas fa-brain"></i>
+                <h2>Smart<span>Test</span></h2>
+            </div>
+
+            <div class="auth-tabs">
+                <button id="tab-login" class="active" onclick="switchAuth('login')">Кіру</button>
+                <button id="tab-register" onclick="switchAuth('register')">Тіркелу</button>
+            </div>
+
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="login-email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-pass" placeholder="Құпия сөз" required>
+                </div>
+                <button type="submit" class="auth-submit-btn">Кіру</button>
+            </form>
+
+            <form id="register-form" style="display: none;" onsubmit="handleRegister(event)">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="reg-name" placeholder="Аты-жөні" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="reg-email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="reg-pass" placeholder="Құпия сөз" required>
+                </div>
+                <button type="submit" class="auth-submit-btn register">Тіркелу</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="app-content" style="display: none;">
+
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="auth-logo" style="margin:0; display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-bolt" style="font-size: 1.5rem; color: #4338ca;"></i>
+                    <h3 style="margin:0;">SmartTest</h3>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-link active" onclick="switchSection('home')"><i class="fas fa-home"></i>
+                            Басты</a></li>
+                    <li><a href="#" class="nav-link" onclick="switchSection('subjects')"><i class="fas fa-book"></i>
+                            Пәндер</a></li>
+                    <li><a href="#" class="nav-link" onclick="switchSection('results')"><i class="fas fa-chart-bar"></i>
+                            Нәтижелер</a></li>
+                    <li><a href="#" class="nav-link" onclick="switchSection('profile')"><i class="fas fa-user"></i>
+                            Профиль</a></li>
+                    <li><a href="#" class="nav-link logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i>
+                            Шығу</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="main-wrapper">
+
+            <div id="home" class="section active">
+
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <h1>Өзіңді дамыт,<br>Болашақты <span class="highlight">бүгін</span> құр!</h1>
+                        <p>ҰБТ-ға дайындық, пәндік тесттер және білім деңгейіңізді анықтайтын үздік платформа. 1500+
+                            сұрақ сізді күтуде.</p>
+
+                        <div class="hero-buttons">
+                            <button class="btn-primary" onclick="switchSection('subjects')">
+                                <i class="fas fa-play"></i> Тестілеуді бастау
+                            </button>
+                            <button class="btn-secondary" onclick="switchSection('profile')">
+                                <i class="fas fa-user-plus"></i> Профиль құру
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hero-stats-visual">
+                        <div class="glass-card card-1">
+                            <h3>1500+</h3>
+                            <span>Сұрақтар</span>
+                        </div>
+                        <div class="glass-card card-2">
+                            <h3>6+</h3>
+                            <span>Пәндер</span>
+                        </div>
+                        <div class="glass-card card-3">
+                            <h3>98%</h3>
+                            <span>Тиімділік</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-area">
+                    <div class="feature-item">
+                        <div class="f-icon"><i class="fas fa-clock"></i></div>
+                        <h4>Уақытпен жарыс</h4>
+                        <p>Нағыз емтихан атмосферасын сезіну үшін әр тестке шектеулі уақыт беріледі.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="f-icon"><i class="fas fa-chart-pie"></i></div>
+                        <h4>Толық статистика</h4>
+                        <p>Әр тесттен кейін қателермен жұмыс және пайыздық көрсеткіш.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="f-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h4>Ыңғайлы интерфейс</h4>
+                        <p>Телефоннан да, компьютерден де кез келген уақытта қолжетімді.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="subjects" class="section">
+                <div class="section-title">
+                    <h2>Тесттер каталогы</h2>
+                    <p style="color: #64748b;">Барлық пәндер бойынша ҰБТ форматындағы сұрақтар</p>
+                </div>
+
+                <div id="testsGrid" class="subjects-grid"></div>
+            </div>
+
+            <div id="results" class="section">
+                <div class="section-title">
+                    <h2>Менің нәтижелерім</h2>
+                </div>
+                <div id="resultsList" class="results-grid"></div>
+            </div>
+
+            <div id="profile" class="section">
+                <div class="profile-new-layout">
+                    <div class="profile-card">
+                        <div class="profile-header-bg"></div>
+                        <div class="profile-body">
+                            <div class="profile-avatar">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h2 id="user-display-name">Қолданушы</h2>
+                            <span class="status-badge">Оқушы</span>
+
+                            <div class="profile-info-grid">
+                                <div class="info-box">
+                                    <small style="color:#64748b;">Email</small>
+                                    <strong id="profile-email-text">user@mail.com</strong>
+                                </div>
+                                <div class="info-box">
+                                    <small style="color:#64748b;">Тіркелген күні</small>
+                                    <strong id="reg-date">01.01.2024</strong>
+                                </div>
+                                <div class="info-box">
+                                    <small style="color:#64748b;">Тапсырған тесттер</small>
+                                    <strong id="stat-done">0</strong>
+                                </div>
+                                <div class="info-box">
+                                    <small style="color:#64748b;">Орташа балл</small>
+                                    <strong id="stat-avg">0%</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer class="modern-footer">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="auth-logo" style="margin:0; display:flex; align-items:center; gap:10px;">
+                        <i class="fas fa-brain" style="font-size: 1.5rem; color: #4338ca;"></i>
+                        <h3 style="margin:0;">Smart<span>Test</span></h3>
+                    </div>
+                    <p style="margin-top: 15px; color: #64748b; line-height: 1.6;">
+                        Білім алушыларға арналған заманауи тест платформасы.
+                        Өз біліміңді шыңдап, жоғары нәтижеге қол жеткіз.
+                    </p>
+                </div>
+
+                <div></div>
+
+                <div class="footer-contact">
+                    <h4>Байланыс</h4>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+7 (771) 495-90-46</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-envelope"></i>
+                        <span>smart.tester.kz@gmail.com</span>
+                    </div>
+                    <div class="footer-social" style="margin-top: 15px;">
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SmartTest Pro. Барлық құқықтар қорғалған.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <div id="test-window" class="test-overlay-window" style="display: none;"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
